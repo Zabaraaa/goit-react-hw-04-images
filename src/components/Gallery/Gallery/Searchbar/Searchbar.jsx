@@ -1,24 +1,18 @@
-import { Component } from 'react';
-import { Form, Button, Input} from './Searchbar.styled';
+import { Form, Button, Input } from './Searchbar.styled';
+import { useState } from "react";
 
-export class SearchBar extends Component {
-    state = {
-        searchQuery: '',
+export default function SearchBar({onSubmit}) {
+    const [searchQuery, setSearchQuery] = useState('')
+
+   // Записуємо в стейт значення інпута
+    const handleChangeSearchQuery = e => {
+    
+        setSearchQuery(e.currentTarget.value.toLowerCase())
     };
 
-    // Записуємо в стейт значення інпута
-    handleChangeSearchQuery = e => {
-        const searchQuery = e.currentTarget.value.toLowerCase();
-
-        this.setState({ searchQuery });
-    };
-
-// Передаємо в App значення searchQuery і очищуємо форму
-    handleSubmit = e => {
+    // Передаємо в App значення searchQuery і очищуємо форму
+    const handleSubmit = (e ) => {
         e.preventDefault();
-
-        const { searchQuery } = this.state;
-        const { onSubmit } = this.props;
         
         if (searchQuery.trim() === '') {
             return;
@@ -26,17 +20,13 @@ export class SearchBar extends Component {
 
     onSubmit(searchQuery);
     
-    this.setState({ searchQuery: '' });
+    setSearchQuery("");
 
     }
 
-    
-    render() {
-        const searchQuery = this.state.searchQuery
-        
         return (
             <header>
-    <Form onSubmit={this.handleSubmit} >
+    <Form onSubmit={handleSubmit} >
     <Button type="submit">
     <span>Search</span>
     </Button>
@@ -47,10 +37,10 @@ export class SearchBar extends Component {
     autoFocus
     placeholder="Search images and photos"
     value={searchQuery}
-    onChange={this.handleChangeSearchQuery}
+    onChange={handleChangeSearchQuery}
     />
     </Form>
 </header>
         )
     }
-}
+
