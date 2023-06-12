@@ -61,7 +61,8 @@ export default function App() {
   
   return (
     <div>
-        <SearchBar onSubmit={handleSubmitSearchQuery} /> 
+      <SearchBar onSubmit={handleSubmitSearchQuery} /> 
+      {error}
         <ImageGallery items={images} getItemClick={getLargeImage} />
         {isLoading && <Loader />}
         {lengthImages && <LoadMore onLoadMore={() => getDataImages} />}
